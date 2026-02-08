@@ -1,15 +1,23 @@
+import os
+
 from agno.agent import Agent
 from agno.os import AgentOS
 from agno.models.ollama import Ollama
 from agno.db.sqlite import SqliteDb
 from agno.tracing import setup_tracing
 
+from env_loader import load_env
+
+load_env()
+
 db = SqliteDb(db_file="storage/agno.db")
 
 setup_tracing(db=db) # Call this once at startup
 
+model_id = os.getenv("MODEL_ID", "gemma3:4b")
+
 agent = Agent(
-    model=Ollama(id="gemma3:4b"),
+    model=Ollama(id=model_id),
     db=db,
     name="Jira Agent",
     description="Analyze and review the input in order to translate it into a Jira task with a title and description.",
