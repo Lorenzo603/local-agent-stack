@@ -36,7 +36,15 @@ prompt_enhancer_agent = Agent(
     instructions=Path("agents/prompt_enhancer/instructions.md").read_text(encoding="utf-8"),
 )
 
-agent_os = AgentOS(agents=[jira_ticket_enhancer_agent, prompt_enhancer_agent])
+email_enhancer_agent = Agent(
+    model=Ollama(id=model_id),
+    db=db,
+    name="Email Enhancer",
+    description="Improve and refine email text to be friendly, pleasant, and straight to the point.",
+    instructions=Path("agents/email_enhancer/instructions.md").read_text(encoding="utf-8"),
+)
+
+agent_os = AgentOS(agents=[jira_ticket_enhancer_agent, prompt_enhancer_agent, email_enhancer_agent])
 app = agent_os.get_app()
 
 if __name__ == "__main__":
