@@ -31,8 +31,14 @@ uv pip install -U ollama
 
 Other dependencies:
 
+On Windows:
 ```bash
 uv pip install -U jwt PyJWT
+```
+
+On MacOS:
+```bash
+uv pip install -U PyJWT
 ```
 
 ## Run
