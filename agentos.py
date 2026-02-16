@@ -45,7 +45,4 @@ email_enhancer_agent = Agent(
 )
 
 agent_os = AgentOS(agents=[jira_ticket_enhancer_agent, prompt_enhancer_agent, email_enhancer_agent])
-app = agent_os.get_app()
 
-if __name__ == "__main__":
-    agent_os.serve("agentos:app", reload=True)
