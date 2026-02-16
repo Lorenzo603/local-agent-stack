@@ -51,7 +51,7 @@ python agentos.py
 
 ## UI
 
-Agent UI docs: https://docs.agno.com/other/agent-ui
+AgentUI docs: https://docs.agno.com/other/agent-ui
 
 Install:
 
@@ -59,7 +59,9 @@ Install:
 npx create-agent-ui@latest
 ```
 
-Run:
+Put it in the same folder of local-agent-stack to make use of Docker Compose.
+
+To run individually:
 
 ```bash
 cd agent-ui && npm run dev
