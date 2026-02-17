@@ -1,4 +1,4 @@
-from agentos import agent_os, app
+from agentos import agent_os
 
 app = agent_os.get_app()
 
