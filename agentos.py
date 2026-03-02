@@ -36,6 +36,14 @@ prompt_enhancer_agent = Agent(
     instructions=Path("agents/prompt_enhancer/instructions.md").read_text(encoding="utf-8"),
 )
 
+agentic_coding_prompt_enhancer_agent = Agent(
+    model=Ollama(id=model_id),
+    db=db,
+    name="Agentic Coding Prompt Enhancer",
+    description="Improve the prompts received as input to optimize them for use with an LLM.",
+    instructions=Path("agents/agentic_coding_prompt_enhancer/instructions.md").read_text(encoding="utf-8"),
+)
+
 email_enhancer_agent = Agent(
     model=Ollama(id=model_id),
     db=db,
@@ -44,6 +52,6 @@ email_enhancer_agent = Agent(
     instructions=Path("agents/email_enhancer/instructions.md").read_text(encoding="utf-8"),
 )
 
-agent_os = AgentOS(agents=[jira_ticket_enhancer_agent, prompt_enhancer_agent, email_enhancer_agent])
+agent_os = AgentOS(agents=[jira_ticket_enhancer_agent, prompt_enhancer_agent, agentic_coding_prompt_enhancer_agent, email_enhancer_agent])
 app = agent_os.get_app()
 
