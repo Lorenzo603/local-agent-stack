@@ -22,7 +22,7 @@ jira_ticket_enhancer_agent = Agent(
     db=db,
     name="Jira Ticket Enhancer",
     description="Analyze and review the input in order to translate it into a Jira task with a title and description.",
-    instructions="Take the following input and create the title and description for a Jira task:  ",
+    instructions=Path("agents/jira_ticket_enhancer/instructions.md").read_text(encoding="utf-8"),
     markdown=True
 )
 
