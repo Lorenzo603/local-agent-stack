@@ -1,6 +1,9 @@
 # Ignore agent-ui sub-project
 agent-ui/
 
+# Ignore DB
+agno.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
