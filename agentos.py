@@ -4,6 +4,7 @@ from pathlib import Path
 from agno.agent import Agent
 from agno.os import AgentOS
 from agno.models.ollama import Ollama
+from agno.models.llama_cpp import LlamaCpp
 from agno.db.sqlite import SqliteDb
 from agno.tracing import setup_tracing
 
@@ -37,7 +38,8 @@ prompt_enhancer_agent = Agent(
 )
 
 agentic_coding_prompt_enhancer_agent = Agent(
-    model=Ollama(id=model_id),
+    # model=Ollama(id=model_id),
+    model=LlamaCpp(id="cyankiwi/Minimax-REAP", base_url="http://127.0.0.1:8001/v1"), # unsloth/MiniMax-M2.5, cyankiwi/Minimax-REAP
     db=db,
     name="Agentic Coding Prompt Enhancer",
     description="Improve the prompts received as input to optimize them for use with an LLM.",
