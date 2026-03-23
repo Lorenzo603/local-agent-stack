@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from agno.agent import Agent
+from agno.team import Team
 from agno.os import AgentOS
 from agno.models.ollama import Ollama
 from agno.models.llama_cpp import LlamaCpp
@@ -38,8 +39,8 @@ prompt_enhancer_agent = Agent(
 )
 
 agentic_coding_prompt_enhancer_agent = Agent(
-    # model=Ollama(id=model_id),
-    model=LlamaCpp(id="cyankiwi/Minimax-REAP", base_url="http://127.0.0.1:8001/v1"), # unsloth/MiniMax-M2.5, cyankiwi/Minimax-REAP
+    model=Ollama(id=model_id),
+    # model=LlamaCpp(id="cyankiwi/Minimax-REAP", base_url="http://127.0.0.1:8001/v1"), # unsloth/MiniMax-M2.5, cyankiwi/Minimax-REAP
     db=db,
     name="Agentic Coding Prompt Enhancer",
     description="Improve the prompts received as input to optimize them for use with an LLM.",
@@ -54,6 +55,33 @@ email_enhancer_agent = Agent(
     instructions=Path("agents/email_enhancer/instructions.md").read_text(encoding="utf-8"),
 )
 
-agent_os = AgentOS(agents=[jira_ticket_enhancer_agent, prompt_enhancer_agent, agentic_coding_prompt_enhancer_agent, email_enhancer_agent])
+
+news_agent = Agent(
+    name="News Agent",
+    role="Analyzes tech news",
+)
+
+finance_agent = Agent(
+    name="Finance Agent",
+    role="Analyzes financial data",
+)
+
+team = Team(
+    model=Ollama(id=model_id),
+    name="Research Team",
+    members=[news_agent, finance_agent],
+    instructions="Delegate to the appropriate agent based on the request. Always start your response back to the question with the name of the agent you have delegated to, followed by a colon",
+    tool_call_limit=5,
+)
+
+agent_os = AgentOS(
+    agents=[
+        jira_ticket_enhancer_agent, 
+        prompt_enhancer_agent, 
+        agentic_coding_prompt_enhancer_agent, 
+        email_enhancer_agent
+    ],
+    teams=[team],
+)
 app = agent_os.get_app()
 
