@@ -43,10 +43,10 @@ uv pip install -U PyJWT
 
 ## Run
 
-Start the agent:
+Start the AgentOS app:
 
 ```bash
-python agentos.py
+python main.py
 ```
 
 ## UI

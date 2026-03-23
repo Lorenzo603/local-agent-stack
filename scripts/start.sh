@@ -3,9 +3,9 @@ set -euo pipefail
 
 # Start backend.
 (
-  case "${OS:-$(uname -s)}" in
-    Darwin*) source ".venv/bin/activate" ;;
-    MINGW*|MSYS*|CYGWIN*|Windows_NT*) source ".venv/Scripts/activate" ;;
+  case "$(uname -s)" in
+    Darwin*|Linux*) source ".venv/bin/activate" ;;
+    MINGW*|MSYS*|CYGWIN*) source ".venv/Scripts/activate" ;;
     *) source ".venv/bin/activate" ;;
   esac
   python main.py
