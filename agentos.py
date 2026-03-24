@@ -3,6 +3,7 @@ from pathlib import Path
 
 from agno.agent import Agent
 from agno.team import Team
+from agno.workflow import Step, Workflow, StepOutput
 from agno.os import AgentOS
 from agno.models.ollama import Ollama
 from agno.models.llama_cpp import LlamaCpp
@@ -66,12 +67,28 @@ finance_agent = Agent(
     role="Analyzes financial data",
 )
 
-team = Team(
+research_team = Team(
     model=Ollama(id=model_id),
     name="Research Team",
     members=[news_agent, finance_agent],
     instructions="Delegate to the appropriate agent based on the request. Always start your response back to the question with the name of the agent you have delegated to, followed by a colon",
     tool_call_limit=5,
+)
+
+def data_preprocessor(step_input):
+    # Custom preprocessing logic
+
+    # Or you can also run any agent/team over here itself
+    # response = some_agent.run(...)
+    return StepOutput(content=f"Processed: {step_input.input}") # <-- Now pass the agent/team response in content here
+
+workflow = Workflow(
+    name="Mixed Execution Pipeline",
+    steps=[
+        research_team,          # Team
+        data_preprocessor,      # Function
+        prompt_enhancer_agent,  # Agent
+    ]
 )
 
 agent_os = AgentOS(
@@ -81,7 +98,8 @@ agent_os = AgentOS(
         agentic_coding_prompt_enhancer_agent, 
         email_enhancer_agent
     ],
-    teams=[team],
+    teams=[research_team],
+    workflows=[workflow],
 )
 app = agent_os.get_app()
 
