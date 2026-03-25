@@ -80,7 +80,7 @@ def data_preprocessor(step_input):
 
     # Or you can also run any agent/team over here itself
     # response = some_agent.run(...)
-    return StepOutput(content=f"Processed: {step_input.input}") # <-- Now pass the agent/team response in content here
+    return StepOutput(content=f"Processed: {step_input.previous_step_content}") # <-- Now pass the agent/team response in content here
 
 workflow = Workflow(
     name="Mixed Execution Pipeline",
@@ -92,6 +92,7 @@ workflow = Workflow(
 )
 
 agent_os = AgentOS(
+    db=db,
     agents=[
         jira_ticket_enhancer_agent, 
         prompt_enhancer_agent, 
