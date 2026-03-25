@@ -33,6 +33,7 @@ jira_ticket_enhancer_agent = Agent(
 
 prompt_enhancer_agent = Agent(
     model=Ollama(id=model_id),
+    # model=LlamaCpp(id="cyankiwi/Minimax-REAP", base_url="http://127.0.0.1:8001/v1"), # unsloth/MiniMax-M2.5, cyankiwi/Minimax-REAP
     db=db,
     name="Prompt Enhancer",
     description="Improve the prompts received as input to optimize them for use with an LLM.",
@@ -54,6 +55,14 @@ email_enhancer_agent = Agent(
     name="Email Enhancer",
     description="Improve and refine email text to be friendly, pleasant, and straight to the point.",
     instructions=Path("agents/email_enhancer/instructions.md").read_text(encoding="utf-8"),
+)
+
+analyze_meeting_transcript_agent = Agent(
+    model=Ollama(id=model_id),
+    db=db,
+    name="Analyze Meeting Transcript",
+    description="Analyze and summarize meeting transcripts.",
+    instructions=Path("agents/analyze_meeting_transcript/instructions.md").read_text(encoding="utf-8"),
 )
 
 
@@ -97,7 +106,8 @@ agent_os = AgentOS(
         jira_ticket_enhancer_agent, 
         prompt_enhancer_agent, 
         agentic_coding_prompt_enhancer_agent, 
-        email_enhancer_agent
+        email_enhancer_agent,
+        analyze_meeting_transcript_agent,
     ],
     teams=[research_team],
     workflows=[workflow],
