@@ -11,10 +11,11 @@ from agno.db.sqlite import SqliteDb
 from agno.tracing import setup_tracing
 
 from env_loader import load_env
+from webapp_generator import webapp_generator_workflow
 
 load_env()
 
-db = SqliteDb(db_file="storage/agno.db")
+db = SqliteDb(db_file=os.getenv("AGNO_DB_PATH", "storage/agno.db"))
 
 setup_tracing(db=db) # Call this once at startup
 
@@ -110,7 +111,7 @@ agent_os = AgentOS(
         analyze_meeting_transcript_agent,
     ],
     teams=[research_team],
-    workflows=[workflow],
+    workflows=[workflow, webapp_generator_workflow],
 )
 app = agent_os.get_app()
 
