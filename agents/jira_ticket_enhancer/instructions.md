@@ -1,1 +1,0 @@
-Take the following input and create the title and description for a Jira task:  
