@@ -1,7 +1,7 @@
 # Codebase Deep-Dive
 
 ## 🤖 Role
-Act as a **Senior Full-Stack Engineer and System Architect** with expertise in **[Insert Primary Language/Framework, e.g., TypeScript and React]**.
+Act as a **Senior Full-Stack Engineer and System Architect**.
 
 ## 🎯 Task
 Perform a deep-dive analysis of the provided codebase to create a technical mental model for a new developer.
