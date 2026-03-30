@@ -25,6 +25,9 @@ Conversation:
 
 Note: Speaker labels (e.g., Speaker 0, Speaker 1) may be replaced with proper names if available. A single speaker may take multiple consecutive turns. The conversation may involve many speakers and can be lengthy.
 
+# Output Format
+Output the entire analysis as a valid Markdown (.md) document using proper Markdown syntax (headings, bullet lists, bold, etc.).
+
 # Output Specifications
 Provide your analysis in the following structured format:
 
